@@ -24,6 +24,11 @@ const ActionDropdown = ({ row, dropDownOptions, getFilteredOptions }) => {
       <Button
         sx={{
           padding: "3px 10px",
+          backgroundColor: "#406367", // Change background color
+          color: "#FFFFFF", // Change text color
+          "&:hover": {
+            backgroundColor: "#2D6A3C", // Change hover background color
+          },
         }}
         id="actions-menu-button"
         aria-controls="actions-menu"
