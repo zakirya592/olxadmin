@@ -29,7 +29,7 @@ const Silder = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await NewRequest.get("/silder");
+      const response = await NewRequest.get("/slider");
       console.log(response);
       setData(response?.data || []);
       setIsLoading(false);
@@ -62,7 +62,7 @@ const Silder = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const isDeleted = await NewRequest.delete("silder" + row?._id);
+          const isDeleted = await NewRequest.delete("slider/" + row?._id);
           if (isDeleted) {
             toast.success(`Silder has been deleted successfully!`);
 

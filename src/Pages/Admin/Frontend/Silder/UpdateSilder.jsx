@@ -29,13 +29,13 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
 
   const handleAddCompany = async () => {
     const formData = new FormData();
-    formData.append("name", name);
+    // formData.append("name", name);
     formData.append("image", imageshow);
-    formData.append("icon", imageshow_ar);
+    // formData.append("icon", imageshow_ar);
     formData.append("status", status);
     try {
       const response = await NewRequest.put(
-        `/silder/${updateBrandData._id}`,
+        `/slider/${updateBrandData._id}`,
         formData,
         {
           headers: {
@@ -90,7 +90,7 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                   Update Silder
                 </h2>
                 <div className="flex flex-col sm:gap-3 gap-3 mt-5">
-                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                  {/* <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="name" className={`text-loactioncolor`}>
                       Name
                     </label>
@@ -102,7 +102,7 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                       placeholder={`Enter Name`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
-                  </div>
+                  </div> */}
 
                   <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="status" className={`text-loactioncolor`}>
@@ -162,7 +162,7 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                       {/* </center> */}
                     </div>
 
-                    <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
+                    {/* <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
                       <label htmlFor="Imagear" className={`text-loactioncolor`}>
                         Icon
                       </label>
@@ -203,7 +203,7 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 

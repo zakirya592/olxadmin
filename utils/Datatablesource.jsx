@@ -1,26 +1,25 @@
 export const AdminUsersColumn = [
-  {
-    field: "name",
-    headerName: "Name",
-    width: 180,
-  },
-  {
-    field: "icon",
-    headerName: "Icon",
-    width: 180,
-    renderCell: (params) => (
-      <img
-        src={params.row.icon}
-        // src={backendUrl + "/" + params.row.address_image}
-        alt="address_image"
-        style={{
-          width: "90%",
-          height: "90%",
-          objectFit: "contain",
-        }}
-      />
-    ),
-  },
+  // {
+  //   field: "name",
+  //   headerName: "Name",
+  //   width: 180,
+  // },
+  // {
+  //   field: "icon",
+  //   headerName: "Icon",
+  //   width: 180,
+  //   renderCell: (params) => (
+  //     <img
+  //       src={params.row.icon}
+  //       alt="address_image"
+  //       style={{
+  //         width: "90%",
+  //         height: "90%",
+  //         objectFit: "contain",
+  //       }}
+  //     />
+  //   ),
+  // },
   {
     field: "image",
     headerName: "Image",
