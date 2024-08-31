@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import NewRequest from "../../../../../utils/NewRequest";
-import "./Categories.css";
+// import "./Categories.css";
 
-const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
+const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
   const [name, setname] = useState("");
   const [Page, setPage] = useState("");
 
@@ -31,14 +31,14 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
     formData.append("name", name);
     formData.append("image", imageshow);
     formData.append("icon", imageshow_ar);
-    formData.append("status", Page || 1);
+    formData.append("status", 1);
     try {
-      const response = await NewRequest.post("/category", formData, {
+      const response = await NewRequest.post("/silder", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success(`Categories has been added successfully".`, {
+      toast.success(`Silder has been added successfully".`, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -52,8 +52,10 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
       refreshBrandData();
       handleCloseCreatePopup();
     } catch (error) {
-        console.log(error);
-      toast.error(error?.response?.data?.error || "Error", {
+      console.log(error);
+      console.log(error);
+      
+      toast.error(error?.response?.data?.message || "Error", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -81,7 +83,7 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
                 <h2
                   className={`text-loactioncolor font-sans font-semibold text-2xl`}
                 >
-                  Add Categories
+                  Add Silder
                 </h2>
                 <div className="flex flex-col sm:gap-3 gap-3 mt-5">
                   <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
@@ -98,7 +100,7 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
                     />
                   </div>
 
-                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                  {/* <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="status" className={`text-loactioncolor`}>
                       status
                     </label>
@@ -112,7 +114,7 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
                       <option value="1">Active</option>
                       <option value="0">InActive</option>
                     </select>
-                  </div>
+                  </div> */}
 
                   <div className="flex justify-between flex-col sm:flex-row">
                     <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
@@ -215,7 +217,7 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
                     onClick={handleAddCompany}
                     className="px-5 py-2 rounded-sm w-[70%] bg-loactioncolor text-white font-body text-sm ml-2"
                   >
-                    Add Categories
+                    Add Silder
                   </button>
                 </div>
               </form>
@@ -227,4 +229,4 @@ const Addcategories = ({ isVisible, setVisibility, refreshBrandData }) => {
   );
 };
 
-export default Addcategories;
+export default AddSilder;

@@ -48,6 +48,10 @@ function customCheckbox(theme) {
         top: "39%",
         border: 0,
       },
+    "& .MuiDataGrid-container--top [role=row], & .MuiDataGrid-container--bottom [role=row]":
+      {
+        background: "#406367", // This sets the background to none
+      },
   };
 }
 

@@ -31,16 +31,19 @@ const AddSubCategory = ({ isVisible, setVisibility, refreshBrandData }) => {
   const handleAddCompany = async () => {
     console.log(Category);
     try {
-      const response = await NewRequest.post("/subCategory", 
+      const response = await NewRequest.post(
+        "/subCategory",
         {
-        name: name,
-        categoryId: Category,
-        status: Page,
-      }, {
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-      });
+          name: name,
+          categoryId: Category,
+          status: Page || 1,
+        },
+        {
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+        }
+      );
       console.log(response);
       toast.success(`SubCategory has been added successfully".`, {
         position: "top-right",

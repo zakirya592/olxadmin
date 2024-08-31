@@ -32,7 +32,7 @@ const AddfooterCategory = ({ isVisible, setVisibility, refreshBrandData }) => {
         {
           name: name,
           subCategory: Category,
-          status: Page,
+          status: Page || 1,
         },
         {
           // headers: {
@@ -133,7 +133,7 @@ const AddfooterCategory = ({ isVisible, setVisibility, refreshBrandData }) => {
                       onChange={(e) => setPage(e.target.value)}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     >
-                      <option value="0"> status </option>
+                      <option value="1"> status </option>
                       <option value="1">Active</option>
                       <option value="0">InActive</option>
                     </select>

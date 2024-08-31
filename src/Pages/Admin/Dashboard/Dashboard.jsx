@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import CircularProgress from "@mui/material/CircularProgress";
 import NewRequest from '../../../../utils/NewRequest';
 import Product from '../Product/Product';
+import Activeproduct from "../../../assets/Images/Activeproduct.png"
+import Rejectedproduct from "../../../assets/Images/Rejectedproduct.jpg"
+import totalproduct from "../../../assets/Images/totalproduct.png"
+import Pendingproduct from "../../../assets/Images/Pendingproduct.jpg"
 
 function Dashboard() {
     
@@ -37,7 +41,7 @@ function Dashboard() {
             <div>
               <div className="flex justify-between items-center px-3 py-3">
                 <img
-                  // src={categorybarcode}
+                  src={Activeproduct}
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
@@ -61,7 +65,7 @@ function Dashboard() {
             <div>
               <div className="flex justify-between items-center px-3 py-3">
                 <img
-                  // src={rangebarcode}
+                  src={Rejectedproduct}
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
@@ -85,7 +89,7 @@ function Dashboard() {
             <div>
               <div className="flex justify-between items-center px-3 py-3">
                 <img
-                  // src={barcoderemain}
+                  src={Pendingproduct}
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
@@ -109,7 +113,7 @@ function Dashboard() {
             <div>
               <div className="flex justify-between items-center px-3 py-3">
                 <img
-                  // src={barcodeIssued}
+                  src={totalproduct}
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
@@ -131,8 +135,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-        <Product/>
-
+      <Product />
     </>
   );
 }

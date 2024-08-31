@@ -49,6 +49,7 @@ import EngineType from "../../../assets/Images/EngineType.jpg";
 import EngineCapacity from "../../../assets/Images/EngineCapacity.png";
 import ScreenSize from "../../../assets/Images/Screen Size.jpg";
 import productsimage from "../../../assets/Images/products.png"
+import Silderimg from "../../../assets/Images/Sildericon.png";
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -289,6 +290,23 @@ const SideBar = () => {
                   alt=""
                 />
                 <p className="sidebar-text">Mega Menu</p>
+              </div>
+
+              <div
+                className={`main-images-container ${
+                  selectedItem === "/Admin/Silder" ? "selected-item" : ""
+                } flex-row justify-start`}
+                onClick={() => handleItemClick("/Admin/Silder")}
+                onContextMenu={(event) =>
+                  handleContextMenu(event, "/Admin/Silder")
+                }
+              >
+                <img
+                  src={Silderimg}
+                  className="main-inside-image bg-white rounded-full"
+                  alt=""
+                />
+                <p className="sidebar-text">Silders</p>
               </div>
             </div>
           )}

@@ -57,6 +57,7 @@ import Footer from "./Pages/Home/Footer/Footer";
 import Singleitem from "./Pages/Home/AllCategories/Singleitem";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import Adminlogin from "./Pages/Admin/Login/AdminLogin";
+import Silder from "./Pages/Admin/Frontend/Silder/Silder";
 
 const queryClient = new QueryClient();
 
@@ -93,7 +94,7 @@ function App() {
           <Routes>
             <Route path="/Post" element={<Sellpage />} />
             <Route path="/Post/Attributes" element={<PostAttributes />} />
-              <Route path="/" element={<Adminlogin />} />
+            <Route path="/" element={<Adminlogin />} />
             <Route element={<UserLayout />}>
               <Route path="/moreproduct/:name" element={<MoreProductview />} />
               <Route path="/Singleitem/:_id" element={<Singleitem />} />{" "}
@@ -116,6 +117,7 @@ function App() {
                       element={<FooterCategory />}
                     />
                     <Route path="/Megamenu" element={<Megamenu />} />
+                    <Route path="/Silder" element={<Silder />} />
                     {/* Masterdata */}
                     <Route path="/Brand" element={<Brand />} />
                     <Route path="/Condition" element={<Condition />} />

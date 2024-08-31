@@ -32,15 +32,15 @@ const Product = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await NewRequest.get("/product");
+      const response = await NewRequest.get("/product/getallproductbyadmin");
       console.log(response);
-       const pendingProducts = response?.data.filter(product => product.status.toLowerCase() === "pending");
+       const pendingProducts = response?.data.filter(product => product.status.toLowerCase() == "pending");
       setData(pendingProducts || []);
       
-       const Activeproduct = response?.data.filter(product => product.status.toLowerCase() === "active");
+       const Activeproduct = response?.data.filter(product => product.status.toLowerCase() == "active");
        setactivedata(Activeproduct);
 
-        const Rejectedproduct = response?.data.filter(product => product.status.toLowerCase() === "rejected");
+        const Rejectedproduct = response?.data.filter(product => product.status.toLowerCase() == "rejected");
        setRejecteddata(Rejectedproduct);
       setIsLoading(false);
     } catch (err) {
