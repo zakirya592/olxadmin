@@ -1,3 +1,5 @@
+import imageLiveUrl from "./urlConverter/imageLiveUrl";
+
 export const AdminUsersColumn = [
   // {
   //   field: "name",
@@ -27,7 +29,7 @@ export const AdminUsersColumn = [
     editable: true,
     renderCell: (params) => (
       <img
-        src={params.row.image}
+        src={imageLiveUrl(params.row.image)}
         // src={backendUrl + "/" + params.row.address_image}
         alt="address_image"
         style={{
@@ -211,7 +213,7 @@ export const AdminMegaMenu = [
     editable: true,
     renderCell: (params) => (
       <img
-        src={params.row.image}
+        src={imageLiveUrl(params.row.image)}
         // src={backendUrl + "/" + params.row.address_image}
         alt="address_image"
         style={{
@@ -228,7 +230,7 @@ export const AdminMegaMenu = [
     width: 180,
     renderCell: (params) => (
       <img
-        src={params.row.icon}
+        src={imageLiveUrl(params.row.icon)}
         // src={backendUrl + "/" + params.row.address_image}
         alt="address_image"
         style={{
@@ -393,7 +395,7 @@ export const AdminMake = [
     editable: true,
     renderCell: (params) => (
       <img
-        src={params.row.image}
+        src={imageLiveUrl(params.row.image)}
         // src={backendUrl + "/" + params.row.address_image}
         alt="image"
         style={{
@@ -486,7 +488,7 @@ export const Adminuser = [
     editable: true,
     renderCell: (params) => (
       <img
-        src={params.row.image}
+        src={imageLiveUrl(params.row.image)}
         // src={backendUrl + "/" + params.row.address_image}
         alt="address_image"
         style={{

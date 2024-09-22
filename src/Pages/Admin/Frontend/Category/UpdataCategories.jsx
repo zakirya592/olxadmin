@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import NewRequest from "../../../../../utils/NewRequest";
 import "./Categories.css";
+import imageLiveUrl from "../../../../../utils/urlConverter/imageLiveUrl";
 
 const UpdataCategories = ({ isVisible, setVisibility, refreshBrandData }) => {
       const updateBrandData = JSON.parse(sessionStorage.getItem("updatecategory"));
@@ -13,9 +14,9 @@ const UpdataCategories = ({ isVisible, setVisibility, refreshBrandData }) => {
   };
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imageshow, setimageshow] = useState(updateBrandData?.image);
+  const [imageshow, setimageshow] = useState(imageLiveUrl(updateBrandData?.image));
   const [selectedFile_ar, setSelectedFile_ar] = useState(null);
-  const [imageshow_ar, setimageshow_ar] = useState(updateBrandData?.icon);
+  const [imageshow_ar, setimageshow_ar] = useState(imageLiveUrl(updateBrandData?.icon));
 
   function handleChangeback(e) {
     setSelectedFile(e.target.files[0]);
