@@ -481,24 +481,57 @@ export const Adminuser = [
     width: 180,
   },
 
-  {
-    field: "image",
-    headerName: "Image",
-    width: 180,
-    editable: true,
-    renderCell: (params) => (
+  // {
+  //   field: "image",
+  //   headerName: "Image",
+  //   width: 180,
+  //   renderCell: (params) => (
+  //     <>
+  //       <img
+  //         src={imageLiveUrl(params.row.image)}
+  //         alt="address_image"
+  //         style={{
+  //           width: "90%",
+  //           height: "90%",
+  //           objectFit: "contain",
+  //         }}
+  //       />
+  //     </>
+  //   ),
+  // },
+
+ {
+  field: "image",
+  headerName: "Image",
+  width: 180,
+  editable: true,
+  renderCell: (params) => {
+    const imageUrl = params.row.image;
+
+    // Check if the image URL is already an https URL or a relative path
+    const finalUrl = imageUrl && imageUrl.startsWith("https") 
+      ? imageUrl  // Use the direct URL if it's already an https link
+      : imageLiveUrl(imageUrl); // Otherwise, apply the imageLiveUrl transformation
+    
+    // Log the final URL for troubleshooting
+    console.log(finalUrl, "finalUrl");
+
+    return imageUrl ? (
       <img
-        src={imageLiveUrl(params.row.image)}
-        // src={backendUrl + "/" + params.row.address_image}
-        alt="address_image"
+        src={finalUrl}
+        alt="User image"
         style={{
           width: "90%",
           height: "90%",
           objectFit: "contain",
         }}
       />
-    ),
+    ) : (
+      <span>No Image</span> // Display when no image URL is available
+    );
   },
+},
+
   {
     field: "status",
     headerName: "Status",

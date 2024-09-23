@@ -5,6 +5,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 // import "./Login.css";
 import { RxCross2 } from "react-icons/rx";
+import imageLiveUrl from "../../../../utils/urlConverter/imageLiveUrl";
 
 const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
   const updateBrandData = JSON.parse(sessionStorage.getItem("updateuserdata"));
@@ -29,7 +30,13 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
   };
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imageshow, setimageshow] = useState(updateBrandData?.image || "");
+   const imageUrl = updateBrandData?.image || "";
+    const finalUrl = imageUrl && imageUrl.startsWith("https") 
+      ? imageUrl  // Use the direct URL if it's already an https link
+      : imageLiveUrl(imageUrl);       
+
+  const [imageshow, setimageshow] = useState(finalUrl);
+
 
   function handleChangeback(e) {
     setSelectedFile(e.target.files[0]);
@@ -64,7 +71,7 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
     const formData = new FormData();
     formData.append("username", name);
     formData.append("email", email);
-    formData.append("password", password);
+    // formData.append("password", password);
     formData.append("dateOfBirth", dateOfBirth);
     formData.append("aboutMe", aboutMe);
     formData.append("phone", companyLandLine);
@@ -189,7 +196,7 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
                     <p className="text-red-600">{companyLandlineError}</p>
                   )}
                   {/* Password */}
-                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                  {/* <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="password" className={`text-loactioncolor`}>
                       Password
                     </label>
@@ -202,7 +209,7 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
                       placeholder={`Enter password`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
-                  </div>
+                  </div> */}
                   {/*  Date Of Birth */}
                   <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label
