@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import imageLiveUrl from "./urlConverter/imageLiveUrl";
 
 export const AdminUsersColumn = [
@@ -81,6 +82,36 @@ export const AdminUsersColumn = [
     },
   },
 ];
+
+export const AdminaboutColumn = [
+  {
+    field: "caption",
+    headerName: "Text",
+    width: 350,
+    renderCell: (params) => (
+      <Box dangerouslySetInnerHTML={{ __html: params.value }} />
+    ),
+  },
+  {
+    field: "createdAt",
+    headerName: "Created At",
+    width: 200,
+    type: "dateTime",
+    valueGetter: (params) => {
+      return params ? new Date(params) : null;
+    },
+  },
+  {
+    field: "updatedAt",
+    headerName: "Updated At",
+    width: 200,
+    type: "dateTime",
+    valueGetter: (params) => {
+      return params ? new Date(params) : null;
+    },
+  },
+];
+
 
 export const AdminSubCategory = [
   {

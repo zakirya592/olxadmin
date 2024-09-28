@@ -22,7 +22,7 @@ import makeicon from "../../../assets/Images/make.jpg"
 import Bedroomicon from "../../../assets/Images/Bedroom.png"
 import Furnishedicon from "../../../assets/Images/Furnished.jpg"
 import usericon from "../../../assets/Images/usersicon.png"
-import logonmm from "../../../assets/Images/logo2.jpeg"
+import logonmm from "../../../assets/Images/pakardilogo.png"
 import Wifiicon from "../../../assets/Images/Wifi.png"
 import BathRoom from "../../../assets/Images/Bath Room.png"
 import Storeyicon from "../../../assets/Images/Storey.png"
@@ -50,6 +50,8 @@ import EngineCapacity from "../../../assets/Images/EngineCapacity.png";
 import ScreenSize from "../../../assets/Images/Screen Size.jpg";
 import productsimage from "../../../assets/Images/products.png"
 import Silderimg from "../../../assets/Images/Sildericon.png";
+import Aboutimage from "../../../assets/Images/about.png"
+import ContactUsimage from "../../../assets/Images/contact-us.png";
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -180,7 +182,11 @@ const SideBar = () => {
             // onClick={() => navigate("/track")}
             onClick={handleLogoClick}
           >
-            <img src={logonmm} className="h-auto w-full rounded-md " alt="" />
+            <img
+              src={logonmm}
+              className="h-28 w-full rounded-md object-contain "
+              alt=""
+            />
           </div>
           <hr />
 
@@ -972,6 +978,30 @@ const SideBar = () => {
               alt=""
             />
             <p className="sidebar-text">Product</p>
+          </div>
+
+          <div
+            className={`main-images-container flex-row justify-start`}
+            onClick={() => navigate("/Admin/About")}
+          >
+            <img
+              src={Aboutimage}
+              className="main-inside-image bg-white rounded-full"
+              alt=""
+            />
+            <p className="sidebar-text">About</p>
+          </div>
+
+          <div
+            className={`main-images-container flex-row justify-start`}
+            onClick={() => navigate("/Admin/ContactUs")}
+          >
+            <img
+              src={ContactUsimage}
+              className="main-inside-image bg-white rounded-full"
+              alt=""
+            />
+            <p className="sidebar-text">Contact Us</p>
           </div>
 
           <div

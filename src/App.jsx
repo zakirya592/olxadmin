@@ -58,6 +58,8 @@ import Singleitem from "./Pages/Home/AllCategories/Singleitem";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import Adminlogin from "./Pages/Admin/Login/AdminLogin";
 import Silder from "./Pages/Admin/Frontend/Silder/Silder";
+import About from "./Pages/Admin/About/About";
+import ContactUs from "./Pages/Admin/ContactUs/ContactUs";
 
 const queryClient = new QueryClient();
 
@@ -112,6 +114,8 @@ function App() {
                     {/* Frontend */}
                     <Route path="/Category" element={<Category />} />
                     <Route path="/subcategory" element={<SubCategory />} />
+                    <Route path="/About" element={<About />} />
+                    <Route path="/ContactUs" element={<ContactUs />} />
                     <Route
                       path="/footerCategory"
                       element={<FooterCategory />}
