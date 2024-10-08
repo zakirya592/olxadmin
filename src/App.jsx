@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./Pages/Home/Home";
-import Sellpage from "./Pages/Home/Sellpage/Sellpage";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import Sidebar from "./components/Admin/Sidebar/Sidebar";
 import Category from "./Pages/Admin/Frontend/Category/Category";
@@ -46,15 +44,8 @@ import Handmade from "./Pages/Admin/MasterData/Handmade/Handmade";
 import Origin from "./Pages/Admin/MasterData/Origin/Origin";
 import Language from "./Pages/Admin/MasterData/Language/Language";
 import MaxFocalLengthRange from "./Pages/Admin/MasterData/MaxFocalLengthRange/MaxFocalLengthRange";
-import PostAttributes from "./Pages/Home/PostAttributes/PostAttributes";
 import SelectionDataProvider from "./Contextapi/Selectioncardcontext";
-import Chat from "./components/Chat/Chat";
 import Product from "./Pages/Admin/Product/Product";
-import MoreProductview from "./Pages/Home/MoreProductview/MoreProductview";
-import Header from "./components/Header/Header";
-import Myfavorites from "./Pages/Home/Myfavorites/Myfavorites";
-import Footer from "./Pages/Home/Footer/Footer";
-import Singleitem from "./Pages/Home/AllCategories/Singleitem";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import Adminlogin from "./Pages/Admin/Login/AdminLogin";
 import Silder from "./Pages/Admin/Frontend/Silder/Silder";
@@ -64,22 +55,7 @@ import ContactUs from "./Pages/Admin/ContactUs/ContactUs";
 const queryClient = new QueryClient();
 
 function App() {
-   const UserLayout = () => {
-     return (
-       <div>
-         <div className="sticky top-0 z-50 bg-white">
-           <Header />
-         </div>
-         {/* <QueryClientProvider client={queryClient}> */}
-           <main className="mx-auto flex max-w-[1760px] flex-col justify-center">
-             <Outlet /> {/* Nested routes will render here */}
-           </main>
-         {/* </QueryClientProvider> */}
-         <Footer />
-         {/* <NewFooter /> */}
-       </div>
-     );
-   };
+ 
    const MainLayout = ({ children }) => {
      return (
        <div className="main-layout-container">
@@ -94,16 +70,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <SelectionDataProvider>
           <Routes>
-            <Route path="/Post" element={<Sellpage />} />
-            <Route path="/Post/Attributes" element={<PostAttributes />} />
             <Route path="/" element={<Adminlogin />} />
-            <Route element={<UserLayout />}>
-              <Route path="/moreproduct/:name" element={<MoreProductview />} />
-              <Route path="/Singleitem/:_id" element={<Singleitem />} />{" "}
-              <Route path="/Chat" element={<Chat />} />{" "}
-              <Route path="/Myfavorites" element={<Myfavorites />} />
-            </Route>
-
             <Route
               path="/Admin/*"
               element={

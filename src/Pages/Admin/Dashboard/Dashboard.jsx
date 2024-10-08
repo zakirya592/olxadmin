@@ -16,11 +16,9 @@ function Dashboard() {
     setLoading(true);
     try {
       const response = await NewRequest.get("/product/countProductsByStatus");
-      console.log(response);
       setProductCounts(response?.data || { active: 0, pending: 0, rejected: 0 });
       setLoading(false);
     } catch (err) {
-      console.log(err);
       setLoading(false);
     }
   };
@@ -30,8 +28,6 @@ function Dashboard() {
   }, []);
 
   const totalProducts = productCounts.active + productCounts.pending + productCounts.rejected;
-
-
 
   return (
     <>
@@ -45,7 +41,6 @@ function Dashboard() {
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
-                {/* <p className='font-sans font-semibold text-3xl text-white -mt-4'>{totalRange}</p> */}
                 {loading ? (
                   <CircularProgress style={{ color: "#ffffff" }} />
                 ) : (
@@ -69,7 +64,6 @@ function Dashboard() {
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
-                {/* <p className='font-sans font-semibold text-2xl text-white -mt-4'>1 to {totalRange -  1}</p> */}
                 {loading ? (
                   <CircularProgress style={{ color: "#ffffff" }} />
                 ) : (
@@ -93,7 +87,6 @@ function Dashboard() {
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
-                {/* <p className='font-sans font-semibold text-3xl text-white -mt-4'>{gtinBarcodeIssued}</p> */}
                 {loading ? (
                   <CircularProgress style={{ color: "#ffffff" }} />
                 ) : (
@@ -117,7 +110,6 @@ function Dashboard() {
                   alt=""
                   className="h-16 w-16 object-contain"
                 />
-                {/* <p className='font-sans font-semibold text-3xl text-white -mt-4'>{gtinBarcodeRemaining}</p> */}
                 {loading ? (
                   <CircularProgress style={{ color: "#ffffff" }} />
                 ) : (

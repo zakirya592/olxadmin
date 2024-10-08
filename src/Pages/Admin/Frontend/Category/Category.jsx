@@ -30,11 +30,9 @@ const Category = () => {
     setIsLoading(true);
     try {
       const response = await NewRequest.get("/category");
-      console.log(response);
       setData(response?.data || []);
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
     }
   };
@@ -43,10 +41,6 @@ const Category = () => {
     fetchData();
   }, []);
 
-  const handleEdit = (row) => {
-    // sessionStorage.setItem("selectedUserData", JSON.stringify(row));
-    navigate("/admin/update-users/" + row?.id);
-  };
 
   const handleDelete = async (row) => {
     Swal.fire({
@@ -56,7 +50,6 @@ const Category = () => {
       showCancelButton: true,
       confirmButtonText: "Yes,Delete",
       cancelButtonText: "No, keep it",
-      // changes the color of the confirm button to red
       confirmButtonColor: "#1E3B8B",
       cancelButtonColor: "#FF0032",
     }).then(async (result) => {
@@ -67,16 +60,12 @@ const Category = () => {
             toast.success(
               `category has been deleted successfully!`
             );
-
-            // filter out the deleted user from the data
             const filteredData = data.filter((item) => item?._id !== row?._id);
             setData(filteredData);
           } else {
-            // Handle any additional logic if the user was not deleted successfully
             toast.error("Failed to delete user");
           }
         } catch (error) {
-          // Handle any error that occurred during the deletion
           console.error("Error deleting user:", error);
           toast.error(
             error?.response?.data?.error ||

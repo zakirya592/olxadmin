@@ -33,8 +33,6 @@ const Users = () => {
         },
       });
       setData(response?.data || []);
-      console.log(response?.data);
-      
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
