@@ -2,31 +2,15 @@ import { Box } from "@mui/material";
 import imageLiveUrl from "./urlConverter/imageLiveUrl";
 
 export const AdminUsersColumn = [
-  // {
-  //   field: "name",
-  //   headerName: "Name",
-  //   width: 180,
-  // },
-  // {
-  //   field: "icon",
-  //   headerName: "Icon",
-  //   width: 180,
-  //   renderCell: (params) => (
-  //     <img
-  //       src={params.row.icon}
-  //       alt="address_image"
-  //       style={{
-  //         width: "90%",
-  //         height: "90%",
-  //         objectFit: "contain",
-  //       }}
-  //     />
-  //   ),
-  // },
+  {
+    field: "url",
+    headerName: "URL",
+    width: 300,
+  },
   {
     field: "image",
     headerName: "Image",
-    width: 180,
+    width: 250,
     editable: true,
     renderCell: (params) => (
       <img
@@ -44,7 +28,7 @@ export const AdminUsersColumn = [
   {
     field: "status",
     headerName: "Status",
-    width: 120,
+    width: 150,
     renderCell: (params) => (
       <div
         style={{
@@ -54,9 +38,9 @@ export const AdminUsersColumn = [
           background: params.value === 1 ? "green" : "red",
           color: "white",
           textAlign: "center",
-          width: "80px", // Fixed width for consistency
-          height: "30px", // Fixed height for consistency
-          lineHeight: "22px", // Vertically center the text
+          width: "80px", 
+          height: "30px", 
+          lineHeight: "22px", 
         }}
       >
         {params.value === 1 ? "Active" : "Inactive"}
@@ -512,56 +496,71 @@ export const Adminuser = [
     width: 180,
   },
 
-  // {
-  //   field: "image",
-  //   headerName: "Image",
-  //   width: 180,
-  //   renderCell: (params) => (
-  //     <>
-  //       <img
-  //         src={imageLiveUrl(params.row.image)}
-  //         alt="address_image"
-  //         style={{
-  //           width: "90%",
-  //           height: "90%",
-  //           objectFit: "contain",
-  //         }}
-  //       />
-  //     </>
-  //   ),
-  // },
-
- {
-  field: "image",
-  headerName: "Image",
-  width: 180,
-  editable: true,
-  renderCell: (params) => {
-    const imageUrl = params.row.image;
-
-    // Check if the image URL is already an https URL or a relative path
-    const finalUrl = imageUrl && imageUrl.startsWith("https") 
-      ? imageUrl  // Use the direct URL if it's already an https link
-      : imageLiveUrl(imageUrl); // Otherwise, apply the imageLiveUrl transformation
-    
-    // Log the final URL for troubleshooting
-    console.log(finalUrl, "finalUrl");
-
-    return imageUrl ? (
-      <img
-        src={finalUrl}
-        alt="User image"
-        style={{
-          width: "90%",
-          height: "90%",
-          objectFit: "contain",
-        }}
-      />
-    ) : (
-      <span>No Image</span> // Display when no image URL is available
-    );
+  {
+    field: "frontImage",
+    headerName: "Front CNIC",
+    width: 180,
+    renderCell: (params) => (
+      <>
+        <img
+          src={imageLiveUrl(params.row.frontImage)}
+          alt="frontImage"
+          style={{
+            width: "90%",
+            height: "90%",
+            objectFit: "contain",
+          }}
+        />
+      </>
+    ),
   },
-},
+
+  {
+    field: "backImage",
+    headerName: "Back CNIC",
+    width: 180,
+    renderCell: (params) => (
+      <>
+        <img
+          src={imageLiveUrl(params.row.backImage)}
+          alt="backImage"
+          style={{
+            width: "90%",
+            height: "90%",
+            objectFit: "contain",
+          }}
+        />
+      </>
+    ),
+  },
+
+  {
+    field: "image",
+    headerName: "Profile Image",
+    width: 180,
+    editable: true,
+    renderCell: (params) => {
+      const imageUrl = params.row.image;
+      const finalUrl =
+        imageUrl && imageUrl.startsWith("https")
+          ? imageUrl
+          : imageLiveUrl(imageUrl);
+
+      return imageUrl ? (
+        <img
+          src={finalUrl}
+          alt="User image"
+          style={{
+            width: "90%",
+            height: "90%",
+            objectFit: "contain",
+          }}
+        />
+      ) : (
+        <span>No Image</span>
+      );
+    },
+  },
 
   {
     field: "status",

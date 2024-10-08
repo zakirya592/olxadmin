@@ -6,34 +6,24 @@ import imageLiveUrl from "../../../../../utils/urlConverter/imageLiveUrl";
 
 const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
   const updateBrandData = JSON.parse(sessionStorage.getItem("updateSilder"));
-  const [name, setname] = useState(updateBrandData?.name || "");
+   const [urlweb, seturlweb] = useState(updateBrandData?.url || "");
   const [status, setstatus] = useState(updateBrandData?.status || 0);
 
   const handleCloseCreatePopup = () => {
     setVisibility(false);
   };
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageshow, setimageshow] = useState( imageLiveUrl(updateBrandData?.image));
-  const [selectedFile_ar, setSelectedFile_ar] = useState(null);
-  const [imageshow_ar, setimageshow_ar] = useState(updateBrandData?.icon);
-console.log(imageLiveUrl(updateBrandData?.image));
 
   function handleChangeback(e) {
     setSelectedFile(e.target.files[0]);
     setimageshow(e.target.files[0]);
   }
 
-  function handleChangeback_ar(e) {
-    setSelectedFile_ar(e.target.files[0]);
-    setimageshow_ar(e.target.files[0]);
-  }
-
   const handleAddCompany = async () => {
     const formData = new FormData();
-    // formData.append("name", name);
+    formData.append("url", urlweb);
     formData.append("image", imageshow);
-    // formData.append("icon", imageshow_ar);
     formData.append("status", status);
     try {
       const response = await NewRequest.put(
@@ -45,7 +35,6 @@ console.log(imageLiveUrl(updateBrandData?.image));
           },
         }
       );
-      console.log(response);
       toast.success(`Silder has been update successfully".`, {
         position: "top-right",
         autoClose: 2000,
@@ -56,11 +45,9 @@ console.log(imageLiveUrl(updateBrandData?.image));
         progress: undefined,
         theme: "light",
       });
-      // console.log(response.data);
       refreshBrandData();
       handleCloseCreatePopup();
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "Error", {
         position: "top-right",
         autoClose: 2000,
@@ -71,7 +58,6 @@ console.log(imageLiveUrl(updateBrandData?.image));
         progress: undefined,
         theme: "light",
       });
-      // console.log(error);
     }
   };
 
@@ -92,19 +78,19 @@ console.log(imageLiveUrl(updateBrandData?.image));
                   Update Silder
                 </h2>
                 <div className="flex flex-col sm:gap-3 gap-3 mt-5">
-                  {/* <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="name" className={`text-loactioncolor`}>
-                      Name
+                      URL
                     </label>
                     <input
                       type="text"
                       id="name"
-                      value={name}
-                      onChange={(e) => setname(e.target.value)}
-                      placeholder={`Enter Name`}
+                      value={urlweb}
+                      onChange={(e) => seturlweb(e.target.value)}
+                      placeholder={`Enter URL`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
-                  </div> */}
+                  </div>
 
                   <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="status" className={`text-loactioncolor`}>

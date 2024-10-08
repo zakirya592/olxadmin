@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useNavigate } from "react-router-dom";
 import { Adminuser } from "../../../../utils/Datatablesource";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
@@ -24,23 +23,23 @@ const Users = () => {
     sessionStorage.setItem("updateuserdata", JSON.stringify(row));
   };
 
-   const fetchData = async () => {
-     setIsLoading(true);
-     const token = localStorage.getItem("authToken"); 
-     try {
-       const response = await NewRequest.get("/users",{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-       console.log(response);
-       setData(response?.data || []);
-       setIsLoading(false);
-     } catch (err) {
-       console.log(err);
-       setIsLoading(false);
-     }
-   };
+  const fetchData = async () => {
+    setIsLoading(true);
+    const token = localStorage.getItem("authToken");
+    try {
+      const response = await NewRequest.get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setData(response?.data || []);
+      console.log(response?.data);
+      
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -54,7 +53,6 @@ const Users = () => {
       showCancelButton: true,
       confirmButtonText: "Yes,Delete",
       cancelButtonText: "No, keep it",
-      // changes the color of the confirm button to red
       confirmButtonColor: "#1E3B8B",
       cancelButtonColor: "#FF0032",
     }).then(async (result) => {
@@ -63,18 +61,15 @@ const Users = () => {
           const isDeleted = await NewRequest.delete("/users/" + row?._id);
           if (isDeleted) {
             toast.success(`User has been deleted successfully!`);
-            // filter out the deleted user from the data
             const filteredData = data.filter((item) => item?._id !== row?._id);
             setData(filteredData);
-            // fetchData();
           } else {
             toast.error("Failed to delete user");
           }
         } catch (error) {
-          console.error("Error deleting user:", error);
           toast.error(
             error?.response?.data?.error ||
-              "Something went wrong while deleting user"
+            "Something went wrong while deleting user"
           );
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -112,8 +107,6 @@ const Users = () => {
                   columnsName={Adminuser}
                   loading={isLoading}
                   secondaryColor="secondary"
-                  //   checkboxSelection={"disabled"}
-                  // actionColumnVisibility={false}
                   handleRowClickInParent={handleRowClickInParent}
                   dropDownOptions={[
                     {

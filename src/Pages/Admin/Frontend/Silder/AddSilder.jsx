@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import NewRequest from "../../../../../utils/NewRequest";
-// import "./Categories.css";
 
 const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
-  const [name, setname] = useState("");
+  const [urlweb, seturlweb] = useState("");
   const [Page, setPage] = useState("");
 
   const handleCloseCreatePopup = () => {
@@ -13,24 +12,18 @@ const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageshow, setimageshow] = useState("");
-  const [selectedFile_ar, setSelectedFile_ar] = useState(null);
-  const [imageshow_ar, setimageshow_ar] = useState("");
 
   function handleChangeback(e) {
     setSelectedFile(e.target.files[0]);
     setimageshow(e.target.files[0]);
   }
 
-  function handleChangeback_ar(e) {
-    setSelectedFile_ar(e.target.files[0]);
-    setimageshow_ar(e.target.files[0]);
-  }
+
 
   const handleAddCompany = async () => {
     const formData = new FormData();
-    // formData.append("name", name);
+    formData.append("url", urlweb);
     formData.append("image", imageshow);
-    // formData.append("icon", imageshow_ar);
     formData.append("status", Page || 1);
     try {
       const response = await NewRequest.post("/slider", formData, {
@@ -48,13 +41,9 @@ const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
         progress: undefined,
         theme: "light",
       });
-      // console.log(response.data);
       refreshBrandData();
       handleCloseCreatePopup();
     } catch (error) {
-      console.log(error);
-      console.log(error);
-      
       toast.error(error?.response?.data?.message || "Error", {
         position: "top-right",
         autoClose: 2000,
@@ -65,7 +54,6 @@ const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
         progress: undefined,
         theme: "light",
       });
-      // console.log(error);
     }
   };
 
@@ -86,19 +74,19 @@ const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                   Add Silder
                 </h2>
                 <div className="flex flex-col sm:gap-3 gap-3 mt-5">
-                  {/* <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="name" className={`text-loactioncolor`}>
-                      Name
+                      URL
                     </label>
                     <input
                       type="text"
                       id="name"
-                      value={name}
-                      onChange={(e) => setname(e.target.value)}
-                      placeholder={`Enter Name`}
+                      value={urlweb}
+                      onChange={(e) => seturlweb(e.target.value)}
+                      placeholder={`Enter URL`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
-                  </div> */}
+                  </div>
 
                   <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label htmlFor="status" className={`text-loactioncolor`}>

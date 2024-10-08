@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../../../../components/DataTable/DataTable";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
@@ -30,11 +29,9 @@ const Silder = () => {
     setIsLoading(true);
     try {
       const response = await NewRequest.get("/slider");
-      console.log(response);
       setData(response?.data || []);
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
     }
   };
@@ -42,11 +39,6 @@ const Silder = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleEdit = (row) => {
-    // sessionStorage.setItem("selectedUserData", JSON.stringify(row));
-    navigate("/admin/update-users/" + row?.id);
-  };
 
   const handleDelete = async (row) => {
     Swal.fire({
@@ -56,7 +48,6 @@ const Silder = () => {
       showCancelButton: true,
       confirmButtonText: "Yes,Delete",
       cancelButtonText: "No, keep it",
-      // changes the color of the confirm button to red
       confirmButtonColor: "#1E3B8B",
       cancelButtonColor: "#FF0032",
     }).then(async (result) => {
@@ -66,16 +57,12 @@ const Silder = () => {
           if (isDeleted) {
             toast.success(`Silder has been deleted successfully!`);
 
-            // filter out the deleted user from the data
             const filteredData = data.filter((item) => item?._id !== row?._id);
             setData(filteredData);
           } else {
-            // Handle any additional logic if the user was not deleted successfully
             toast.error("Failed to delete user");
           }
         } catch (error) {
-          // Handle any error that occurred during the deletion
-          console.error("Error deleting user:", error);
           toast.error(
             error?.response?.data?.error ||
               "Something went wrong while deleting user"
@@ -117,8 +104,6 @@ const Silder = () => {
                   columnsName={AdminUsersColumn}
                   loading={isLoading}
                   secondaryColor="secondary"
-                  //   checkboxSelection={"disabled"}
-                  // actionColumnVisibility={false}
                   handleRowClickInParent={handleRowClickInParent}
                   dropDownOptions={[
                     {
