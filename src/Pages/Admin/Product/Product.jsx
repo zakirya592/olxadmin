@@ -104,16 +104,15 @@ const Product = () => {
 
 
   const handledropdown = async (row, action) => {
-    const status = action === "approve" ? "active" : "rejected";
-    console.log(status);
+    // const status = action === "approve" ? "active" : "rejected";
+        const status = action === "approve" ? "active" : action === "reject" ? "rejected" : "pending";
 
-    console.log(row._id);
+    console.log(status);
 
     try {
       const approverejectproduct = await NewRequest.put(`/product/${row?._id}`, {
         status: status,
       });
-      console.log(approverejectproduct.data);
        fetchData();
       toast.success(
         `The product has been ${action === "approve" ? "Approved" : "Rejected"
@@ -129,7 +128,6 @@ const Product = () => {
         }
       );
     } catch (err) {
-      console.log(err);
       toast.error(err?.response?.data?.error || "Error", {
         position: "top-right",
         autoClose: 2000,
@@ -150,14 +148,7 @@ const Product = () => {
         <div className="flex justify-center items-center">
           <div className="h-auto w-[97%] px-0 pt-4">
             <div className="h-auto w-full p-4 bg-white shadow-xl rounded-md">
-              <div className={`flex px-3 flex-row justify-start`}>
-                {/* <button
-                  onClick={handleShowCreatePopup}
-                  className="rounded-full bg-secondary font-body px-5 py-1 text-sm mb-3 text-white transition duration-200 hover:bg-primary"
-                >
-                  <i className="fas fa-plus mr-2"></i>Add Product
-                </button> */}
-              </div>
+              <div className={`flex px-3 flex-row justify-start`}></div>
 
               {/* DataGrid */}
               <div style={{ marginLeft: "-11px", marginRight: "-11px" }}>
@@ -218,11 +209,11 @@ const Product = () => {
                   loading={isLoading}
                   secondaryColor="secondary"
                   // checkboxSelection={"disabled"}
-                  actionColumnVisibility={false}
+                  // actionColumnVisibility={false}
                   handleRowClickInParent={handleRowClickInParent}
                   dropDownOptions={[
                     {
-                      label: "Approved",
+                      label: "Pending",
                       icon: (
                         <FcApproval
                           fontSize="small"
@@ -231,7 +222,7 @@ const Product = () => {
                           style={{ color: "rgb(37 99 235)" }}
                         />
                       ),
-                      action: (row) => handledropdown(row, "approve"),
+                      action: (row) => handledropdown(row, "Pending"),
                     },
                     {
                       label: `Reject`,
@@ -268,9 +259,21 @@ const Product = () => {
                   loading={isLoading}
                   secondaryColor="secondary"
                   // checkboxSelection={"disabled"}
-                  actionColumnVisibility={false}
+                  // actionColumnVisibility={false}
                   handleRowClickInParent={handleRowClickInParent}
                   dropDownOptions={[
+                    {
+                      label: "Pending",
+                      icon: (
+                        <FcApproval
+                          fontSize="small"
+                          color="action"
+                          size={20}
+                          style={{ color: "rgb(37 99 235)" }}
+                        />
+                      ),
+                      action: (row) => handledropdown(row, "Pending"),
+                    },
                     {
                       label: "Approved",
                       icon: (
@@ -283,17 +286,7 @@ const Product = () => {
                       ),
                       action: (row) => handledropdown(row, "approve"),
                     },
-                    {
-                      label: `Reject`,
-                      icon: (
-                        <GppBadIcon
-                          fontSize="small"
-                          color="action"
-                          style={{ color: "rgb(37 99 235)" }}
-                        />
-                      ),
-                      action: (row) => handledropdown(row, "reject"),
-                    },
+
                     {
                       label: `Delete`,
                       icon: (
