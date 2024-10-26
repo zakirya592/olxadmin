@@ -6,55 +6,70 @@ import "react-phone-input-2/lib/style.css";
 // import "./Login.css";
 import { RxCross2 } from "react-icons/rx";
 import imageLiveUrl from "../../../../utils/urlConverter/imageLiveUrl";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
   const updateBrandData = JSON.parse(sessionStorage.getItem("updateuserdata"));
-  const [name, setname] = useState(updateBrandData?.username || "");
-  const [email, setemail] = useState(updateBrandData?.email || "");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFilefrontcnic, setSelectedFilefrontcnic] = useState(null);
+  const [selectedFilebackcnic, setSelectedFilebackcnic] = useState(null);
+  const [selectedFileBusinessimageshow, setselectedFileBusinessimageshow] = useState(null)
+  const [isGemstone, setIsGemstone] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setpassword] = useState("");
-  const [dateOfBirth, setdateOfBirth] = useState(
-    updateBrandData?.dateOfBirth || ""
-  );
-  const [address, setaddress] = useState(updateBrandData?.address || "");
-  const [aboutMe, setaboutMe] = useState(updateBrandData?.aboutMe || "");
-  const [companyLandLine, setCompanyLandLine] = useState(
-    updateBrandData?.phone || ""
-  );
-
-  const [status, setstatus] = useState(updateBrandData?.status || 0);
+  const [taxNo, settaxNo] = useState("");
+  const [id_cardNo, setid_cardNo] = useState("");
+  const [Businessimageshow, setBusinessimageshow] = useState("");
+  const [imageshowfrontcnic, setimageshowfrontcnic] = useState("");
+  const [imageshowbackcnic, setimageshowbackcnic] = useState("");
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [dateOfBirth, setdateOfBirth] = useState("");
+  const [address, setaddress] = useState("");
+  const [aboutMe, setaboutMe] = useState("");
+  const [companyLandLine, setCompanyLandLine] = useState("");
+  const [status, setstatus] = useState(0);
   const [companyLandlineError, setCompanyLandlineError] = useState("");
+  const [imageshow, setimageshow] = useState("");
   const [loading, setloading] = useState(false)
 
   const handleCloseCreatePopup = () => {
     setVisibility(false);
   };
 
-  const [selectedFile, setSelectedFile] = useState(null);
-   const imageUrl = updateBrandData?.image || "";
-    const finalUrl = imageUrl && imageUrl.startsWith("https") 
-      ? imageUrl  // Use the direct URL if it's already an https link
-      : imageLiveUrl(imageUrl);       
-
-  const [imageshow, setimageshow] = useState(finalUrl);
-
-
   function handleChangeback(e) {
     setSelectedFile(e.target.files[0]);
     setimageshow(e.target.files[0]);
   }
 
+    const handleChange = (e) => {
+      const value = e.target.value;
+      // Remove non-numeric characters to enforce the format
+      const formattedValue = value.replace(/[^0-9]/g, "");
+
+      // Check if the length is within the allowed range
+      if (formattedValue.length <= 13) {
+        const parts = [];
+        if (formattedValue.length > 5) {
+          parts.push(formattedValue.substring(0, 5));
+          if (formattedValue.length > 12) {
+            parts.push(formattedValue.substring(5, 12));
+            parts.push(formattedValue.substring(12, 13));
+          } else {
+            parts.push(formattedValue.substring(5));
+          }
+        } else {
+          parts.push(formattedValue);
+        }
+        setid_cardNo(parts.join("-")); // Join the parts with a dash
+      }
+    };
+
   const handlecompanyLandLine = (value) => {
     // Reset error message
     setCompanyLandlineError("");
 
-    // Check if the country code is for Saudi Arabia
     if (value.startsWith("966")) {
-      // Check for mobile number (should start with '9665')
-      // if (value.length > 1 && value[3] !== '5') {
-      //     setCompanyLandlineError('Mobile number must start with 9665');
-      // }
-
-      // Check for maximum length (12 digits including country code)
       if (value.length > 12) {
         setCompanyLandlineError(
           `${t("Number must be a maximum of 12 digits")}`
@@ -66,18 +81,79 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
     setCompanyLandLine(value);
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+  useEffect(() => {
+    NewRequest.get(`/users/${updateBrandData?._id || ""}`).then((response) => {
+      const userdata = response.data;
+      setpassword(userdata?.password || "");
+      setname(userdata?.username || "");
+      setstatus(userdata?.status || 0);
+      setemail(userdata?.email || "");
+      setCompanyLandLine(userdata?.phone || "");
+      setaddress(userdata?.address || "");
+      setaboutMe(userdata?.aboutMe || "");
+      setdateOfBirth(userdata?.dateOfBirth || "");
+      const imageUrl = userdata?.image || "";
+      const finalUrl = imageUrl && imageUrl.startsWith("https") ? imageUrl : imageLiveUrl(imageUrl);
+      setimageshow(finalUrl || "");
+      setIsGemstone(userdata?.isGemstone || false);
+      setid_cardNo(userdata?.id_cardNo || "");
+      settaxNo(userdata?.taxNo || "");
+
+      const imageUrlcnicfront = userdata?.frontImage || "";
+      const finalUrlcnicfront = imageUrlcnicfront && imageUrlcnicfront.startsWith("https") ? imageUrlcnicfront : imageLiveUrl(imageUrlcnicfront);
+      setimageshowfrontcnic(finalUrlcnicfront || "");
+
+      const imageUrlcnicback = userdata?.backImage || "";
+      const finalUrlcnicback = imageUrlcnicback && imageUrlcnicback.startsWith("https") ? imageUrlcnicback : imageLiveUrl(imageUrlcnicback);
+      setimageshowbackcnic(finalUrlcnicback || "");
+
+      const imageUrlBusiness = userdata?.pictureBusinessCertificate || "";
+      const finalUrlcnicBusiness = imageUrlBusiness && imageUrlBusiness.startsWith("https") ? imageUrlBusiness : imageLiveUrl(imageUrlBusiness);
+      setBusinessimageshow(finalUrlcnicBusiness || "");
+
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
+    function handleChangebackfrontcnic(e) {
+      setSelectedFilefrontcnic(e.target.files[0]);
+      setimageshowfrontcnic(e.target.files[0]);
+    }
+    function handleChangebackbackcnic(e) {
+      setSelectedFilebackcnic(e.target.files[0]);
+      setimageshowbackcnic(e.target.files[0]);
+    }
+      function handleChangeBusiness(e) {
+        setselectedFileBusinessimageshow(e.target.files[0]);
+        setBusinessimageshow(e.target.files[0]);
+      }
+
   const handleAddCompany = async () => {
     setloading(true)
     const formData = new FormData();
     formData.append("username", name);
     formData.append("email", email);
-    // formData.append("password", password);
+    formData.append("password", password);
     formData.append("dateOfBirth", dateOfBirth);
     formData.append("aboutMe", aboutMe);
     formData.append("phone", companyLandLine);
     formData.append("address", address);
     formData.append("status", status);
     formData.append("image", imageshow);
+    if (isGemstone) {
+      formData.append("isGemstone", true);
+      formData.append("pictureBusinessCertificate", Businessimageshow);
+      formData.append("frontImage", imageshowfrontcnic);
+      formData.append("backImage", imageshowbackcnic);
+      formData.append("taxNo", taxNo);
+      formData.append("id_cardNo", id_cardNo);
+    }
     try {
       const response = await NewRequest.put(
         `/users/${updateBrandData?._id}`,
@@ -104,7 +180,7 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
       refreshBrandData()
     } catch (error) {
       console.log(error);
-       setloading(false);
+      setloading(false);
       toast.error(error?.response?.data?.error || "Error", {
         position: "top-right",
         autoClose: 2000,
@@ -196,12 +272,12 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
                     <p className="text-red-600">{companyLandlineError}</p>
                   )}
                   {/* Password */}
-                  {/* <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2 relative">
                     <label htmlFor="password" className={`text-loactioncolor`}>
                       Password
                     </label>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       required
                       value={password}
@@ -209,7 +285,17 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
                       placeholder={`Enter password`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
-                  </div> */}
+                    <div
+                      className="absolute inset-y-0 right-0 text-black mt-7 flex items-center pr-3 cursor-pointer"
+                      onClick={toggleShowPassword}
+                    >
+                      {showPassword ? (
+                        <AiOutlineEye />
+                      ) : (
+                        <AiOutlineEyeInvisible />
+                      )}
+                    </div>
+                  </div>
                   {/*  Date Of Birth */}
                   <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
                     <label
@@ -272,7 +358,7 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
                     />
                   </div>
                   {/* IMage */}
-                  <div className="flex justify-between flex-col sm:flex-row">
+                  <div className="flex justify-between flex-col sm:flex-row mb-10">
                     <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
                       {/* <center> */}
                       <label htmlFor="Image" className={`text-loactioncolor`}>
@@ -317,13 +403,184 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
                   </div>
                 </div>
 
+                {isGemstone && (
+                  <>
+                    {/* ID Card Number */}
+                    <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                      <label
+                        htmlFor="idCardNumber"
+                        className={`text-loactioncolor`}
+                      >
+                        ID card / Passport Number
+                      </label>
+                      <input
+                        type="text"
+                        id="idCardNumber"
+                        value={id_cardNo}
+                        onChange={handleChange}
+                        className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                        placeholder="Enter your ID card / Passport Number"
+                      />
+                    </div>
+
+                    {/* Tax Number */}
+                    <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                      <label
+                        htmlFor="taxNumber"
+                        className={`text-loactioncolor`}
+                      >
+                        Tax No
+                      </label>
+                      <input
+                        type="text"
+                        id="taxNumber"
+                        value={taxNo}
+                        onChange={(e) => settaxNo(e.target.value)}
+                        className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                        placeholder="Enter Tax No"
+                      />
+                    </div>
+
+                    {/* Image Upload Section */}
+                    <div className="flex justify-between flex-col sm:flex-row">
+                      <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
+                        <label
+                          htmlFor="Business"
+                          className={`text-loactioncolor`}
+                        >
+                          Business Certificate
+                        </label>
+                        <div className="imgesection">
+                          <img
+                            src={
+                              selectedFileBusinessimageshow
+                                ? URL.createObjectURL(
+                                    selectedFileBusinessimageshow
+                                  )
+                                : Businessimageshow != null
+                                ? Businessimageshow
+                                : ""
+                            }
+                            className="printerpic text-black"
+                            alt="Uploaded Business Certificate"
+                            style={{
+                              width: "200px",
+                              height: "200px",
+                            }}
+                          />
+                          <div className="row " htmlFor="file-inputs">
+                            <label
+                              htmlFor="Business"
+                              className="choosefile bg-loactioncolor hover:bg-primary"
+                            >
+                              Upload
+                            </label>
+                            <input
+                              id="Business"
+                              type="file"
+                              onChange={handleChangeBusiness}
+                              style={{ display: "none" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
+                        <label
+                          htmlFor="frontCNIC"
+                          className={`text-loactioncolor`}
+                        >
+                          Front CNIC
+                        </label>
+                        <div className="imgesection">
+                          <img
+                            src={
+                              selectedFilefrontcnic
+                                ? URL.createObjectURL(selectedFilefrontcnic)
+                                : imageshowfrontcnic != null
+                                ? imageshowfrontcnic
+                                : ""
+                            }
+                            className="printerpic text-black"
+                            alt="Front CNIC"
+                            style={{
+                              width: "200px",
+                              height: "200px",
+                            }}
+                          />
+                          <div className="row " htmlFor="file-inputs">
+                            <label
+                              htmlFor="frontCNIC"
+                              className="choosefile bg-loactioncolor hover:bg-primary"
+                            >
+                              Upload
+                            </label>
+                            <input
+                              id="frontCNIC"
+                              type="file"
+                              onChange={handleChangebackfrontcnic}
+                              style={{ display: "none" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="printerPic font-body sm:text-base text-sm flex flex-col gap-2">
+                        <label
+                          htmlFor="backcnic"
+                          className={`text-loactioncolor`}
+                        >
+                          Back CNIC
+                        </label>
+                        <div className="imgesection">
+                          <img
+                            src={
+                              selectedFilebackcnic
+                                ? URL.createObjectURL(selectedFilebackcnic)
+                                : imageshowbackcnic != null
+                                ? imageshowbackcnic
+                                : ""
+                            }
+                            className="printerpic text-black"
+                            alt="Back CNIC"
+                            style={{
+                              width:
+                                selectedFilebackcnic || imageshowbackcnic
+                                  ? "200px"
+                                  : "200px",
+                              height:
+                                selectedFilebackcnic || imageshowbackcnic
+                                  ? "200px"
+                                  : "200px",
+                            }}
+                          />
+                          <div className="row " htmlFor="backcnic">
+                            <label
+                              htmlFor="backcnic"
+                              className="choosefile bg-loactioncolor hover:bg-primary"
+                            >
+                              Upload
+                            </label>
+                            <input
+                              id="backcnic"
+                              type="file"
+                              onChange={handleChangebackbackcnic}
+                              style={{ display: "none" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
                 <div className="w-full flex justify-center items-center gap-8 mt-5">
                   <button
                     type="button"
                     onClick={handleAddCompany}
                     className="px-5 py-2 rounded-sm w-[70%] bg-loactioncolor text-white font-body text-sm ml-2"
                   >
-                     {loading?'Loading....': 'Update User'}
+                    {loading ? "Loading...." : "Update User"}
                   </button>
                 </div>
               </form>

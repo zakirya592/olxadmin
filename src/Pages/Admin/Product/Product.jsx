@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import { AdminBrand, AdminProduct } from "../../../../utils/Datatablesource";
+import {  AdminProduct } from "../../../../utils/Datatablesource";
 import NewRequest from "../../../../utils/NewRequest";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
@@ -17,34 +16,23 @@ const Product = () => {
   const [data, setData] = useState([]);
   const [activedata, setactivedata] = useState([])
   const [Rejecteddata, setRejecteddata] = useState([])
-
   const [isCreatePopupVisible, setCreatePopupVisibility] = useState(false);
   const [isUpdatePopupVisible, setUpdatePopupVisibility] = useState(false);
-  const handleShowCreatePopup = () => {
-    setCreatePopupVisibility(true);
-  };
-  const handleShowUpdatePopup = (row) => {
-    setUpdatePopupVisibility(true);
-    sessionStorage.setItem("updateOrigin", JSON.stringify(row));
-  };
+
   const navigate = useNavigate();
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const response = await NewRequest.get("/product/getallproductbyadmin");
-      console.log(response);
        const pendingProducts = response?.data.filter(product => product.status.toLowerCase() == "pending");
       setData(pendingProducts || []);
-      
        const Activeproduct = response?.data.filter(product => product.status.toLowerCase() == "active");
        setactivedata(Activeproduct);
-
         const Rejectedproduct = response?.data.filter(product => product.status.toLowerCase() == "rejected");
        setRejecteddata(Rejectedproduct);
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
     }
   };
@@ -101,14 +89,9 @@ const Product = () => {
     }
   };
 
-
-
   const handledropdown = async (row, action) => {
     // const status = action === "approve" ? "active" : "rejected";
         const status = action === "approve" ? "active" : action === "reject" ? "rejected" : "pending";
-
-    console.log(status);
-
     try {
       const approverejectproduct = await NewRequest.put(`/product/${row?._id}`, {
         status: status,

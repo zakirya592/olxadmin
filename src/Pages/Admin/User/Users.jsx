@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Adminuser } from "../../../../utils/Datatablesource";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ import DataTable from "../../../components/DataTable/DataTable";
 import NewRequest from "../../../../utils/NewRequest";
 import Adduser from "./Adduser";
 import Updateuser from "./Updateuser";
+import ViewUser from "./ViewUser";
 
 const Users = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +17,7 @@ const Users = () => {
 
   const [isCreatePopupVisible, setCreatePopupVisibility] = useState(false);
   const [isUpdatePopupVisible, setUpdatePopupVisibility] = useState(false);
+  const [isViewUserpop, setisViewUserpop] = useState(false);
   const handleShowCreatePopup = () => {
     setCreatePopupVisibility(true);
   };
@@ -22,6 +25,10 @@ const Users = () => {
     setUpdatePopupVisibility(true);
     sessionStorage.setItem("updateuserdata", JSON.stringify(row));
   };
+    const handleShowviewPopup = (row) => {
+      setisViewUserpop(true);
+      sessionStorage.setItem("viewuserdata", JSON.stringify(row));
+    };
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -108,6 +115,17 @@ const Users = () => {
                   handleRowClickInParent={handleRowClickInParent}
                   dropDownOptions={[
                     {
+                      label: `View`,
+                      icon: (
+                        <VisibilityIcon
+                          fontSize="small"
+                          color="action"
+                          style={{ color: "rgb(37 99 235)" }}
+                        />
+                      ),
+                      action: handleShowviewPopup,
+                    },
+                    {
                       label: `Edit`,
                       icon: (
                         <EditIcon
@@ -148,6 +166,14 @@ const Users = () => {
           <Updateuser
             isVisible={isUpdatePopupVisible}
             setVisibility={setUpdatePopupVisibility}
+            refreshBrandData={fetchData}
+          />
+        )}
+
+        {isViewUserpop && (
+          <ViewUser
+            isVisible={isViewUserpop}
+            setVisibility={setisViewUserpop}
             refreshBrandData={fetchData}
           />
         )}
