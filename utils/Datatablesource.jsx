@@ -510,6 +510,13 @@ export const Adminuser = [
             height: "90%",
             objectFit: "contain",
           }}
+          onClick={() => {
+            window.open(
+              imageLiveUrl(params.row.frontImage),
+              "_blank",
+              "width=400,height=300,top=0,left=0"
+            );
+          }}
         />
       </>
     ),
@@ -528,6 +535,39 @@ export const Adminuser = [
             width: "90%",
             height: "90%",
             objectFit: "contain",
+          }}
+          onClick={() => {
+            window.open(
+              imageLiveUrl(params.row.backImage),
+              "_blank",
+              "width=400,height=300,top=0,left=0"
+            );
+          }}
+        />
+      </>
+    ),
+  },
+
+  {
+    field: "pictureBusinessCertificate",
+    headerName: "Business Certificate",
+    width: 180,
+    renderCell: (params) => (
+      <>
+        <img
+          src={imageLiveUrl(params.row.pictureBusinessCertificate)}
+          alt="backImage"
+          style={{
+            width: "90%",
+            height: "90%",
+            objectFit: "contain",
+          }}
+          onClick={() => {
+            window.open(
+              imageLiveUrl(params.row.pictureBusinessCertificate),
+              "_blank",
+              "width=400,height=300,top=0,left=0"
+            );
           }}
         />
       </>
@@ -554,6 +594,13 @@ export const Adminuser = [
             width: "90%",
             height: "90%",
             objectFit: "contain",
+          }}
+          onClick={() => {
+            window.open(
+              imageLiveUrl(params.row.image),
+              "_blank",
+              "width=400,height=300,top=0,left=0"
+            );
           }}
         />
       ) : (
