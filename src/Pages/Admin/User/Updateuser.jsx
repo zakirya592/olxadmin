@@ -89,7 +89,7 @@ const Updateuser = ({ isVisible, setVisibility, refreshBrandData }) => {
   useEffect(() => {
     NewRequest.get(`/users/${updateBrandData?._id || ""}`).then((response) => {
       const userdata = response.data;
-      setpassword(userdata?.password || "");
+      // setpassword(userdata?.password || "");
       setname(userdata?.username || "");
       setstatus(userdata?.status || 0);
       setemail(userdata?.email || "");
