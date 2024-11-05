@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
 import imageLiveUrl from "./urlConverter/imageLiveUrl";
 
+
 export const AdminUsersColumn = [
   {
-    field: "url",
-    headerName: "URL",
+    field: "name",
+    headerName: "Name",
     width: 300,
   },
   {
@@ -38,9 +39,9 @@ export const AdminUsersColumn = [
           background: params.value === 1 ? "green" : "red",
           color: "white",
           textAlign: "center",
-          width: "80px", 
-          height: "30px", 
-          lineHeight: "22px", 
+          width: "80px",
+          height: "30px",
+          lineHeight: "22px",
         }}
       >
         {params.value === 1 ? "Active" : "Inactive"}
