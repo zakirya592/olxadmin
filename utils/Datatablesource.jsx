@@ -4,7 +4,7 @@ import imageLiveUrl from "./urlConverter/imageLiveUrl";
 
 export const AdminUsersColumn = [
   {
-    field: "name",
+    field: "url",
     headerName: "Name",
     width: 300,
   },
