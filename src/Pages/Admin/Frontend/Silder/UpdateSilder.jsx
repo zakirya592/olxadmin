@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import NewRequest from "../../../../../utils/NewRequest";
 import imageLiveUrl from "../../../../../utils/urlConverter/imageLiveUrl";
@@ -6,7 +6,12 @@ import imageLiveUrl from "../../../../../utils/urlConverter/imageLiveUrl";
 
 const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
   const updateBrandData = JSON.parse(sessionStorage.getItem("updateSilder"));
-   const [urlweb, seturlweb] = useState(updateBrandData?.url || "");
+  const [urlweb, seturlweb] = useState(updateBrandData?.url || "");
+  const [title, setTitle] = useState(updateBrandData?.title || "");
+  const [heading, setHeading] = useState(updateBrandData?.heading || "");
+  const [description, setDescription] = useState(
+    updateBrandData?.description || ""
+  );
   const [status, setstatus] = useState(updateBrandData?.status || 0);
 
   const handleCloseCreatePopup = () => {
@@ -23,6 +28,9 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
   const handleAddCompany = async () => {
     const formData = new FormData();
     formData.append("url", urlweb);
+    formData.append("title", title);
+    formData.append("heading", heading);
+    formData.append("description", description);
     formData.append("image", imageshow);
     formData.append("status", status);
     try {
@@ -88,6 +96,44 @@ const UpdateSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                       value={urlweb}
                       onChange={(e) => seturlweb(e.target.value)}
                       placeholder={`Enter URL`}
+                      className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                    />
+                  </div>
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                    <label htmlFor="title" className={`text-loactioncolor`}>
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder={`Enter Title`}
+                      className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                    />
+                  </div>
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                    <label htmlFor="heading" className={`text-loactioncolor`}>
+                      Heading
+                    </label>
+                    <input
+                      type="text"
+                      id="heading"
+                      value={heading}
+                      onChange={(e) => setHeading(e.target.value)}
+                      placeholder={`Enter Heading`}
+                      className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                    />
+                  </div>
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                    <label htmlFor="description" className={`text-loactioncolor`}>
+                      Description
+                    </label>
+                    <textarea
+                      id="description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder={`Enter Description`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
                   </div>

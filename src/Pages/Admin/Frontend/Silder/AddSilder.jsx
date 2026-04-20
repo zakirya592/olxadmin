@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import NewRequest from "../../../../../utils/NewRequest";
 
 const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
   const [urlweb, seturlweb] = useState("");
   const [Page, setPage] = useState("");
+  const [title, setTitle] = useState("");
+  const [heading, setHeading] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleCloseCreatePopup = () => {
     setVisibility(false);
@@ -23,6 +26,9 @@ const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
   const handleAddCompany = async () => {
     const formData = new FormData();
     formData.append("url", urlweb);
+    formData.append("title", title);
+    formData.append("heading", heading);
+    formData.append("description", description);
     formData.append("image", imageshow);
     formData.append("status", Page || 1);
     try {
@@ -84,6 +90,44 @@ const AddSilder = ({ isVisible, setVisibility, refreshBrandData }) => {
                       value={urlweb}
                       onChange={(e) => seturlweb(e.target.value)}
                       placeholder={`Enter URL`}
+                      className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                    />
+                  </div>
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                    <label htmlFor="title" className={`text-loactioncolor`}>
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder={`Enter Title`}
+                      className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                    />
+                  </div>
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                    <label htmlFor="heading" className={`text-loactioncolor`}>
+                      Heading
+                    </label>
+                    <input
+                      type="text"
+                      id="heading"
+                      value={heading}
+                      onChange={(e) => setHeading(e.target.value)}
+                      placeholder={`Enter Heading`}
+                      className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
+                    />
+                  </div>
+                  <div className="w-full font-body sm:text-base text-sm flex flex-col gap-2">
+                    <label htmlFor="description" className={`text-loactioncolor`}>
+                      Description
+                    </label>
+                    <textarea
+                      id="description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder={`Enter Description`}
                       className={`border-1 w-full rounded-sm border-[#8E9CAB] p-2 mb-3`}
                     />
                   </div>

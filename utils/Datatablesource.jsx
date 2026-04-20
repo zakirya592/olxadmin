@@ -6,7 +6,22 @@ export const AdminUsersColumn = [
   {
     field: "url",
     headerName: "Name",
-    width: 300,
+    width: 220,
+  },
+  {
+    field: "title",
+    headerName: "Title",
+    width: 180,
+  },
+  {
+    field: "heading",
+    headerName: "Heading",
+    width: 200,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 260,
   },
   {
     field: "image",
