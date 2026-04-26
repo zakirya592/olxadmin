@@ -6,6 +6,7 @@ import Sidebar from "./components/Admin/Sidebar/Sidebar";
 import Category from "./Pages/Admin/Frontend/Category/Category";
 import SubCategory from "./Pages/Admin/Frontend/subCategory/SubCategory";
 import FooterCategory from "./Pages/Admin/Frontend/FooterCategory/FooterCategory";
+import FooterContent from "./Pages/Admin/Frontend/FooterContent/FooterContent";
 import Megamenu from "./Pages/Admin/Frontend/Megamenu/Megamenu";
 import Brand from "./Pages/Admin/MasterData/Brand/Brand";
 import Condition from "./Pages/Admin/MasterData/Condition/Condition";
@@ -86,6 +87,10 @@ function App() {
                     <Route
                       path="/footerCategory"
                       element={<FooterCategory />}
+                    />
+                    <Route
+                      path="/footerContent"
+                      element={<FooterContent />}
                     />
                     <Route path="/Megamenu" element={<Megamenu />} />
                     <Route path="/Silder" element={<Silder />} />

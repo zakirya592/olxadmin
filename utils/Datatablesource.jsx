@@ -231,6 +231,37 @@ export const AdminFooterCategory = [
   },
 ];
 
+export const AdminFooterContent = [
+  {
+    field: "heading",
+    headerName: "Heading",
+    width: 220,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 360,
+  },
+  {
+    field: "createdAt",
+    headerName: "Created At",
+    width: 200,
+    type: "dateTime",
+    valueGetter: (params) => {
+      return params ? new Date(params) : null;
+    },
+  },
+  {
+    field: "updatedAt",
+    headerName: "Updated At",
+    width: 200,
+    type: "dateTime",
+    valueGetter: (params) => {
+      return params ? new Date(params) : null;
+    },
+  },
+];
+
 export const AdminMegaMenu = [
   {
     field: "name",

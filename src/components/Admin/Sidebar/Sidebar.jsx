@@ -283,6 +283,23 @@ const SideBar = () => {
 
               <div
                 className={`main-images-container ${
+                  selectedItem === "/Admin/footerContent" ? "selected-item" : ""
+                } flex-row justify-start`}
+                onClick={() => handleItemClick("/Admin/footerContent")}
+                onContextMenu={(event) =>
+                  handleContextMenu(event, "/Admin/footerContent")
+                }
+              >
+                <img
+                  src={Footericon}
+                  className="main-inside-image bg-white rounded-full"
+                  alt=""
+                />
+                <p className="sidebar-text">Footer Content</p>
+              </div>
+
+              <div
+                className={`main-images-container ${
                   selectedItem === "/Admin/Megamenu" ? "selected-item" : ""
                 } flex-row justify-start`}
                 onClick={() => handleItemClick("/Admin/Megamenu")}
